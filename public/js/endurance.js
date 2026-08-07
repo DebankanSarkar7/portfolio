@@ -339,8 +339,9 @@ function loadEnduranceBlogs() {
         const items = data.items || [];
         const endurancePosts = [];
         
-        // Filter for endurance-related posts
+        // Filter for endurance-related posts - stricter matching
         const enduranceKeywords = ['endurance', 'running', 'marathon', 'training', 'fitness', 'pace', 'distance', 'strava', 'athlete', 'tempo', 'threshold'];
+        const excludeKeywords = ['devops', 'aws', 'cloud', 'data', 'pipeline', 'api', 'docker', 'kubernetes', 'git', 'python', 'sql'];
         
         items.forEach(item => {
           const title = item.title || '';
@@ -349,18 +350,25 @@ function loadEnduranceBlogs() {
           const description = item.description || '';
           const categories = item.categories || [];
           
-          // Check if post is endurance-related
+          // Check if post is endurance-related and not tech-related
           const titleLower = title.toLowerCase();
           const descLower = description.toLowerCase();
           const catsLower = categories.map(c => c.toLowerCase()).join(' ');
           
-          const isEndurance = enduranceKeywords.some(keyword => 
+          // Must contain endurance keyword
+          const hasEnduranceKeyword = enduranceKeywords.some(keyword => 
             titleLower.includes(keyword) || 
             descLower.includes(keyword) ||
             catsLower.includes(keyword)
           );
           
-          if (isEndurance) {
+          // Must NOT contain exclude keywords
+          const hasExcludeKeyword = excludeKeywords.some(keyword => 
+            titleLower.includes(keyword) || 
+            descLower.includes(keyword)
+          );
+          
+          if (hasEnduranceKeyword && !hasExcludeKeyword) {
             const date = pubDate ? new Date(pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
             const cleanDescription = description.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 135);
             
