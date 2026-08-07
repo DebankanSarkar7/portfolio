@@ -21,18 +21,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Copy website files to deploy folder
-        run: |
-          mkdir -p deploy
-          cp public/index.html deploy/
-          cp public/endurance.html deploy/
-          cp -r public/css deploy/
-          cp -r public/js deploy/
-      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './deploy'
+          path: './public'
 
   deploy:
     permissions:
