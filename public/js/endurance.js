@@ -1,5 +1,95 @@
 // Embedded Endurance Data
 const enduranceData = {
+  cyclingStats: {
+    totalDistance: '15,234 km',
+    totalTime: '523:45:30',
+    activities: 156,
+    elevation: '45,678 m',
+    longestRide: '180 km',
+    avgSpeed: '28.5 km/h'
+  },
+  cyclingHighlights: [
+    {
+      title: '180km Century Ride',
+      date: 'July 2026',
+      location: 'Kolkata Circuit',
+      achievement: 'First sub-5 hour century'
+    },
+    {
+      title: 'Hill Climb Challenge',
+      date: 'June 2026',
+      location: 'Darjeeling Hills',
+      achievement: '2,500m elevation gain'
+    },
+    {
+      title: 'Group Ride Leader',
+      date: 'May 2026',
+      location: 'Sundarbans Loop',
+      achievement: 'Led 50+ rider peloton'
+    }
+  ],
+  gallery: {
+    marathons: [
+      {
+        image: 'images/marathon1.jpg',
+        title: 'Kolkata Marathon 2026',
+        date: 'January 2026',
+        description: 'First marathon completion'
+      },
+      {
+        image: 'images/marathon2.jpg',
+        title: 'Mumbai City Marathon',
+        date: 'Upcoming',
+        description: 'Target: Sub-3 hours'
+      },
+      {
+        image: 'images/marathon3.jpg',
+        title: 'Training Run',
+        date: 'August 2026',
+        description: '32km long run preparation'
+      }
+    ],
+    cycling: [
+      {
+        image: 'images/cycling1.jpg',
+        title: 'Century Ride',
+        date: 'July 2026',
+        description: '180km through Bengal countryside'
+      },
+      {
+        image: 'images/cycling2.jpg',
+        title: 'Hill Climb',
+        date: 'June 2026',
+        description: 'Darjeeling mountain challenge'
+      },
+      {
+        image: 'images/cycling3.jpg',
+        title: 'Group Ride',
+        date: 'May 2026',
+        description: 'Leading the peloton'
+      }
+    ],
+    medals: [
+      {
+        image: 'images/medal1.jpg',
+        title: 'Marathon Finisher',
+        date: 'January 2026',
+        description: 'Kolkata Marathon'
+      },
+      {
+        image: 'images/medal2.jpg',
+        title: 'Century Rider',
+        date: 'July 2026',
+        description: '180km achievement'
+      },
+      {
+        image: 'images/medal3.jpg',
+        title: 'Hill Climb Champion',
+        date: 'June 2026',
+        description: 'Darjeeling challenge'
+      }
+    ]
+  },
   upcomingRaces: [
     {
       name: 'Kolkata Marathon 2026',
@@ -7,7 +97,8 @@ const enduranceData = {
       location: 'Kolkata, India',
       distance: '42.2 km',
       goal: 'Sub-3:00',
-      status: 'Training'
+      status: 'Training',
+      type: 'Running'
     },
     {
       name: 'Mumbai City Marathon',
@@ -15,7 +106,17 @@ const enduranceData = {
       location: 'Mumbai, India',
       distance: '42.2 km',
       goal: 'Sub-2:55',
-      status: 'Registered'
+      status: 'Registered',
+      type: 'Running'
+    },
+    {
+      name: 'Bengal Century Ride',
+      date: 'November 10, 2026',
+      location: 'Kolkata to Digha',
+      distance: '160 km',
+      goal: 'Sub-5 hours',
+      status: 'Training',
+      type: 'Cycling'
     },
     {
       name: 'Delhi Half Marathon',
@@ -23,7 +124,8 @@ const enduranceData = {
       location: 'New Delhi, India',
       distance: '21.1 km',
       goal: 'Sub-1:20',
-      status: 'Training'
+      status: 'Training',
+      type: 'Running'
     }
   ],
   monthlyAchievements: [
@@ -98,6 +200,11 @@ const achievementsList = document.querySelector('#achievements-list');
 const stravaStats = document.querySelector('#strava-stats');
 const prsList = document.querySelector('#prs-list');
 const blogsList = document.querySelector('#blogs-list');
+const cyclingStats = document.querySelector('#cycling-stats');
+const cyclingHighlightsList = document.querySelector('#cycling-highlights-list');
+const marathonsGallery = document.querySelector('#marathons-gallery');
+const cyclingGallery = document.querySelector('#cycling-gallery');
+const medalsGallery = document.querySelector('#medals-gallery');
 const sections = document.querySelectorAll('section, .hero-copy, .hero-media');
 
 // Navigation Toggle
@@ -178,7 +285,10 @@ function loadRaces() {
       <article class="race-card">
         <div class="race-header">
           <h3>${race.name}</h3>
-          <span class="race-status ${race.status.toLowerCase()}">${race.status}</span>
+          <div class="race-badges">
+            <span class="race-type ${race.type.toLowerCase()}">${race.type}</span>
+            <span class="race-status ${race.status.toLowerCase()}">${race.status}</span>
+          </div>
         </div>
         <div class="race-details">
           <div class="race-detail">
@@ -414,6 +524,150 @@ function loadEnduranceBlogs() {
   }
 }
 
+// Load Cycling Stats
+function loadCyclingStats() {
+  if (!cyclingStats) return;
+
+  try {
+    const stats = enduranceData.cyclingStats;
+
+    const html = `
+      <div class="cycling-stat-card">
+        <span class="cycling-stat-number">${stats.totalDistance}</span>
+        <span class="cycling-stat-label">Total Distance</span>
+      </div>
+      <div class="cycling-stat-card">
+        <span class="cycling-stat-number">${stats.totalTime}</span>
+        <span class="cycling-stat-label">Total Time</span>
+      </div>
+      <div class="cycling-stat-card">
+        <span class="cycling-stat-number">${stats.activities}</span>
+        <span class="cycling-stat-label">Activities</span>
+      </div>
+      <div class="cycling-stat-card">
+        <span class="cycling-stat-number">${stats.elevation}</span>
+        <span class="cycling-stat-label">Elevation Gain</span>
+      </div>
+      <div class="cycling-stat-card">
+        <span class="cycling-stat-number">${stats.longestRide}</span>
+        <span class="cycling-stat-label">Longest Ride</span>
+      </div>
+      <div class="cycling-stat-card">
+        <span class="cycling-stat-number">${stats.avgSpeed}</span>
+        <span class="cycling-stat-label">Avg Speed</span>
+      </div>
+    `;
+
+    cyclingStats.innerHTML = html;
+  } catch (error) {
+    cyclingStats.innerHTML = '<div class="cycling-stat-card placeholder"><p>Error loading cycling stats.</p></div>';
+    console.error('Cycling stats load error:', error);
+  }
+}
+
+// Load Cycling Highlights
+function loadCyclingHighlights() {
+  if (!cyclingHighlightsList) return;
+
+  try {
+    const highlights = enduranceData.cyclingHighlights || [];
+
+    if (!highlights.length) {
+      cyclingHighlightsList.innerHTML = '<div class="cycling-highlight-card placeholder"><p>No cycling highlights yet.</p></div>';
+      return;
+    }
+
+    const html = highlights.map((highlight) => `
+      <article class="cycling-highlight-card">
+        <div class="highlight-header">
+          <h3>${highlight.title}</h3>
+          <span class="highlight-date">${highlight.date}</span>
+        </div>
+        <div class="highlight-location">${highlight.location}</div>
+        <div class="highlight-achievement">${highlight.achievement}</div>
+      </article>
+    `).join('');
+
+    cyclingHighlightsList.innerHTML = html;
+  } catch (error) {
+    cyclingHighlightsList.innerHTML = '<div class="cycling-highlight-card placeholder"><p>Error loading cycling highlights.</p></div>';
+    console.error('Cycling highlights load error:', error);
+  }
+}
+
+// Load Gallery
+function loadGallery() {
+  if (!marathonsGallery || !cyclingGallery || !medalsGallery) return;
+
+  try {
+    const gallery = enduranceData.gallery;
+
+    const renderGalleryCards = (items) => {
+      if (!items.length) {
+        return '<div class="gallery-card placeholder"><p>No photos yet.</p></div>';
+      }
+      return items.map((item) => `
+        <article class="gallery-card">
+          <div class="gallery-image-container">
+            <div class="gallery-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+              </svg>
+              <span>Add Photo</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <h4>${item.title}</h4>
+            <span class="gallery-date">${item.date}</span>
+            <p class="gallery-description">${item.description}</p>
+          </div>
+        </article>
+      `).join('');
+    };
+
+    marathonsGallery.innerHTML = renderGalleryCards(gallery.marathons);
+    cyclingGallery.innerHTML = renderGalleryCards(gallery.cycling);
+    medalsGallery.innerHTML = renderGalleryCards(gallery.medals);
+  } catch (error) {
+    console.error('Gallery load error:', error);
+  }
+}
+
+// Gallery Tab Switching
+function setupGalleryTabs() {
+  const tabs = document.querySelectorAll('.gallery-tab');
+  const galleries = {
+    marathons: document.querySelector('#marathons-gallery'),
+    cycling: document.querySelector('#cycling-gallery'),
+    medals: document.querySelector('#medals-gallery')
+  };
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove active class from all tabs
+      tabs.forEach(t => t.classList.remove('active'));
+      // Add active class to clicked tab
+      tab.classList.add('active');
+
+      // Hide all galleries
+      Object.values(galleries).forEach(gallery => {
+        if (gallery) gallery.style.display = 'none';
+      });
+
+      // Show selected gallery
+      const tabName = tab.dataset.tab;
+      if (galleries[tabName]) {
+        galleries[tabName].style.display = 'grid';
+      }
+    });
+  });
+
+  // Show marathons by default
+  if (galleries.marathons) galleries.marathons.style.display = 'grid';
+  if (galleries.cycling) galleries.cycling.style.display = 'none';
+  if (galleries.medals) galleries.medals.style.display = 'none';
+}
+
 // Load all data when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   loadRaces();
@@ -421,4 +675,8 @@ document.addEventListener('DOMContentLoaded', () => {
   loadStravaStats();
   loadPRs();
   loadEnduranceBlogs();
+  loadCyclingStats();
+  loadCyclingHighlights();
+  loadGallery();
+  setupGalleryTabs();
 });

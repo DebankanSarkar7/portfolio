@@ -753,8 +753,10 @@ body[data-theme="light"] .site-header {
 .races-section,
 .achievements-section,
 .blogs-section,
+.cycling-section,
 .strava-section,
-.training-section {
+.training-section,
+.gallery-section {
   margin-top: 84px;
   padding: 40px 0;
   border-top: 1px solid rgba(255,255,255,0.08);
@@ -783,20 +785,28 @@ body[data-theme="light"] .site-header {
   box-shadow: 0 26px 70px rgba(0,0,0,0.12);
 }
 
-.race-header,
-.achievement-header {
+.race-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 24px;
+  gap: 16px;
 }
 
-.race-header h3,
-.achievement-header h3 {
+.race-header h3 {
   font-size: 1.4rem;
   margin: 0;
+  flex: 1;
 }
 
+.race-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.race-type,
 .race-status {
   padding: 6px 16px;
   border-radius: 20px;
@@ -806,17 +816,27 @@ body[data-theme="light"] .site-header {
   font-weight: 600;
 }
 
-.race-status.training {
+.race-type.running {
   background: rgba(206,255,0,0.15);
   color: #ceff00;
 }
 
-.race-status.registered {
+.race-type.cycling {
+  background: rgba(255,100,100,0.15);
+  color: #ff6464;
+}
+
+.race-status.training {
   background: rgba(0,200,255,0.15);
   color: #00c8ff;
 }
 
-.achievement-highlight {
+.race-status.registered {
+  background: rgba(0,255,150,0.15);
+  color: #00ff96;
+}
+
+.achievement-header {
   color: var(--accent);
   font-size: 0.9rem;
   font-weight: 500;
@@ -928,6 +948,213 @@ body[data-theme="light"] .site-header {
 
 .blog-link:hover {
   color: #fff;
+}
+
+.cycling-section {
+  margin-top: 84px;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.cycling-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.cycling-stat-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  transition: transform 0.25s ease;
+}
+
+.cycling-stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.cycling-stat-number {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.cycling-stat-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.cycling-highlights {
+  margin-top: 48px;
+}
+
+.cycling-highlights h3 {
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+}
+
+.cycling-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.cycling-highlight-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 32px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cycling-highlight-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 70px rgba(0,0,0,0.12);
+}
+
+.highlight-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.highlight-header h3 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.highlight-date {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.highlight-location {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.highlight-achievement {
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.gallery-section {
+  margin-top: 84px;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.gallery-tabs {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.gallery-tab {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--muted);
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.gallery-tab:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.gallery-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+}
+
+.gallery-content {
+  min-height: 400px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.gallery-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 70px rgba(0,0,0,0.12);
+}
+
+.gallery-image-container {
+  height: 200px;
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  gap: 12px;
+}
+
+.gallery-placeholder svg {
+  opacity: 0.5;
+}
+
+.gallery-placeholder span {
+  font-size: 0.9rem;
+}
+
+.gallery-info {
+  padding: 24px;
+}
+
+.gallery-info h4 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.gallery-date {
+  display: block;
+  color: var(--accent);
+  font-size: 0.8rem;
+  margin-bottom: 12px;
+}
+
+.gallery-description {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .strava-stats {
