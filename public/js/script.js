@@ -16,7 +16,13 @@ const linkedInData = {
     {
       company: 'Tata Consultancy Services',
       title: 'Data Engineer',
-      description: '• Designed and developed enterprise-scale data platforms on AWS using S3, Lambda, Glue, and Python\n• Integrated diverse business platforms into centralized cloud data platforms through robust ETL pipelines\n• Optimized SQL databases for downstream API and application consumption, improving data accessibility\n• Implemented real-time data pipelines using PySpark, AWS DMS, SQS, CloudWatch, DynamoDB, and RDS\n• Conducted comprehensive data analysis to design cost-effective, high-performance data pipelines',
+      description: `<ul>
+<li>Designed and developed enterprise-scale data platforms on AWS using S3, Lambda, Glue, and Python</li>
+<li>Integrated diverse business platforms into centralized cloud data platforms through robust ETL pipelines</li>
+<li>Optimized SQL databases for downstream API and application consumption, improving data accessibility</li>
+<li>Implemented real-time data pipelines using PySpark, AWS DMS, SQS, CloudWatch, DynamoDB, and RDS</li>
+<li>Conducted comprehensive data analysis to design cost-effective, high-performance data pipelines</li>
+</ul>`,
       location: 'Kolkata',
       startDate: 'Apr 2025',
       endDate: 'Present'
@@ -160,8 +166,6 @@ function loadMediumStories() {
   }
 }
 
-loadMediumStories();
-
 function loadExperience() {
   if (!experienceList) return;
 
@@ -186,7 +190,7 @@ function loadExperience() {
           <div class="experience-company">${pos.company}</div>
           <div class="experience-dates">${dateRange}</div>
           ${pos.location ? `<div class="experience-location">${pos.location}</div>` : ''}
-          ${pos.description ? `<p>${pos.description}</p>` : ''}
+          ${pos.description ? `<div class="experience-description">${pos.description}</div>` : ''}
         </article>
       `;
     }).join('');
@@ -219,6 +223,14 @@ function loadSkills() {
 
 loadExperience();
 loadSkills();
+loadMediumStories();
+
+// Load data when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  loadExperience();
+  loadSkills();
+  loadMediumStories();
+});
 
 window.addEventListener('scroll', () => {
   const scrollTop = window.scrollY;

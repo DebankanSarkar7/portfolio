@@ -634,6 +634,31 @@ body[data-theme="light"] .site-header {
   margin-bottom: 16px;
 }
 
+.experience-description {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+.experience-description ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.experience-description li {
+  padding: 8px 0;
+  position: relative;
+  padding-left: 20px;
+}
+
+.experience-description li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
 .experience-card p {
   color: var(--muted);
   line-height: 1.8;
