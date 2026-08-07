@@ -308,10 +308,11 @@ body[data-theme="light"] .site-header {
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 24px;
   padding: 32px;
-  min-height: 260px;
+  min-height: 320px;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .feature-card:hover {
@@ -336,11 +337,12 @@ body[data-theme="light"] .site-header {
 .feature-card p {
   color: var(--muted);
   line-height: 1.85;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  flex-grow: 1;
 }
 
 .feature-card .button {
-  margin-top: auto;
+  margin-top: 20px;
   width: fit-content;
 }
 
