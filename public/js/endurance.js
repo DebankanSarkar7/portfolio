@@ -326,32 +326,38 @@ function loadEnduranceBlogs() {
   if (!blogsList) return;
 
   try {
-    const rssUrl = 'https://medium.com/feed/@debankansarkar';
+    // Use a CORS proxy to fetch Medium RSS feed
+    const rssUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@debankansarkar';
     
     fetch(rssUrl)
-      .then(response => response.text())
-      .then(str => {
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(str, 'text/xml');
-        const items = xml.querySelectorAll('item');
+      .then(response => response.json())
+      .then(data => {
+        if (data.status !== 'ok') {
+          throw new Error('RSS feed error');
+        }
         
+        const items = data.items || [];
         const endurancePosts = [];
-        const itemsArray = Array.from(items);
         
-        // Filter for endurance-related posts by checking tags/categories
-        itemsArray.forEach(item => {
-          const categories = Array.from(item.querySelectorAll('category')).map(cat => cat.textContent.toLowerCase());
-          const title = item.querySelector('title')?.textContent || '';
-          const link = item.querySelector('link')?.textContent || '';
-          const pubDate = item.querySelector('pubDate')?.textContent || '';
-          const description = item.querySelector('description')?.textContent || '';
+        // Filter for endurance-related posts
+        const enduranceKeywords = ['endurance', 'running', 'marathon', 'training', 'fitness', 'pace', 'distance', 'strava', 'athlete', 'tempo', 'threshold'];
+        
+        items.forEach(item => {
+          const title = item.title || '';
+          const link = item.link || '';
+          const pubDate = item.pubDate || '';
+          const description = item.description || '';
+          const categories = item.categories || [];
           
-          // Check if post is endurance-related (contains endurance-related keywords)
-          const enduranceKeywords = ['endurance', 'running', 'marathon', 'training', 'fitness', 'pace', 'distance', 'strava', 'athlete'];
+          // Check if post is endurance-related
+          const titleLower = title.toLowerCase();
+          const descLower = description.toLowerCase();
+          const catsLower = categories.map(c => c.toLowerCase()).join(' ');
+          
           const isEndurance = enduranceKeywords.some(keyword => 
-            title.toLowerCase().includes(keyword) || 
-            description.toLowerCase().includes(keyword) ||
-            categories.some(cat => cat.includes(keyword))
+            titleLower.includes(keyword) || 
+            descLower.includes(keyword) ||
+            catsLower.includes(keyword)
           );
           
           if (isEndurance) {
@@ -368,7 +374,7 @@ function loadEnduranceBlogs() {
         });
         
         if (endurancePosts.length === 0) {
-          blogsList.innerHTML = '<article class="blog-card placeholder"><p>No endurance blogs found. Check back soon!</p></article>';
+          blogsList.innerHTML = '<article class="blog-card placeholder"><p>No endurance blogs found yet. Write your first endurance post on Medium!</p></article>';
           return;
         }
         
@@ -385,7 +391,14 @@ function loadEnduranceBlogs() {
       })
       .catch(error => {
         console.error('Medium RSS fetch error:', error);
-        blogsList.innerHTML = '<article class="blog-card placeholder"><p>Error loading endurance blogs.</p></article>';
+        // Fallback to direct Medium link
+        blogsList.innerHTML = `
+          <article class="blog-card">
+            <h3>Read on Medium</h3>
+            <p>Check out my endurance-related posts on Medium, tagged with #endurance, #running, #marathon, and more.</p>
+            <a class="blog-link" href="https://medium.com/@debankansarkar" target="_blank" rel="noreferrer">Visit Medium Profile →</a>
+          </article>
+        `;
       });
   } catch (error) {
     blogsList.innerHTML = '<article class="blog-card placeholder"><p>Error loading blog data.</p></article>';
