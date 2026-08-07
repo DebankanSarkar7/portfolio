@@ -334,11 +334,16 @@ body[data-theme="light"] .site-header {
   font-size: 1.65rem;
 }
 
+.feature-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .feature-card p {
   color: var(--muted);
   line-height: 1.85;
   margin-bottom: 20px;
-  flex-grow: 1;
 }
 
 .feature-card .button {
