@@ -752,6 +752,7 @@ body[data-theme="light"] .site-header {
 /* ========== Endurance Page Styles ========== */
 .races-section,
 .achievements-section,
+.blogs-section,
 .strava-section,
 .training-section {
   margin-top: 84px;
@@ -760,7 +761,8 @@ body[data-theme="light"] .site-header {
 }
 
 .races-grid,
-.achievements-grid {
+.achievements-grid,
+.blogs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
@@ -876,6 +878,57 @@ body[data-theme="light"] .site-header {
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
+}
+
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.blog-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 32px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 70px rgba(0,0,0,0.12);
+}
+
+.blog-date {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.blog-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.blog-card p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.blog-link {
+  display: inline-block;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.blog-link:hover {
+  color: #fff;
 }
 
 .strava-stats {

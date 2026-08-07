@@ -5,7 +5,6 @@ const themeToggle = document.querySelector('.theme-toggle');
 const copyEmailButton = document.querySelector('.copy-email');
 const scrollProgress = document.querySelector('.topbar-progress');
 const techList = document.querySelector('#tech-list');
-const enduranceList = document.querySelector('#endurance-list');
 const experienceList = document.querySelector('#experience-list');
 const skillsList = document.querySelector('#skills-list');
 const sections = document.querySelectorAll('section, .hero-copy, .hero-media');
@@ -114,10 +113,10 @@ sections.forEach((section) => {
 });
 
 function loadMediumStories() {
-  if (!techList || !enduranceList) return;
+  if (!techList) return;
 
   try {
-    // Embedded sample Medium data
+    // Embedded sample Medium data - tech only
     const mediumData = {
       tech: [
         {
@@ -131,13 +130,11 @@ function loadMediumStories() {
           description: 'From alerting rules to incident narratives, everything is built to keep the pipeline moving.',
           pubDate: 'Jul 28, 2026',
           link: 'https://medium.com/@debankansarkar'
-        }
-      ],
-      endurance: [
+        },
         {
-          title: 'Tempo Work and Threshold Training',
-          description: 'The same mind that builds durable systems also values steady growth on the road.',
-          pubDate: 'Aug 1, 2026',
+          title: 'Building Resilient Data Pipelines',
+          description: 'Lessons from production failures and how to design systems that recover gracefully.',
+          pubDate: 'Jul 10, 2026',
           link: 'https://medium.com/@debankansarkar'
         }
       ]
@@ -158,10 +155,8 @@ function loadMediumStories() {
     }
 
     techList.innerHTML = renderCards(mediumData.tech);
-    enduranceList.innerHTML = renderCards(mediumData.endurance);
   } catch (error) {
     techList.innerHTML = '<article class="medium-card placeholder"><p>Error loading tech stories.</p></article>';
-    enduranceList.innerHTML = '<article class="medium-card placeholder"><p>Error loading endurance stories.</p></article>';
     console.error('Medium load error:', error);
   }
 }

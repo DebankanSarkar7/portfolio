@@ -1,5 +1,25 @@
 // Embedded Endurance Data
 const enduranceData = {
+  enduranceBlogs: [
+    {
+      title: 'Tempo Work and Threshold Training',
+      description: 'The same mind that builds durable systems also values steady growth on the road.',
+      pubDate: 'Aug 1, 2026',
+      link: 'https://medium.com/@debankansarkar'
+    },
+    {
+      title: 'Building Aerobic Base for Long-Distance Running',
+      description: 'How consistent easy runs create the foundation for marathon success and improved recovery.',
+      pubDate: 'Jul 15, 2026',
+      link: 'https://medium.com/@debankansarkar'
+    },
+    {
+      title: 'Marathon Pacing Strategy: The Art of Negative Splits',
+      description: 'Why starting conservatively and finishing strong is the key to achieving your time goals.',
+      pubDate: 'Jun 28, 2026',
+      link: 'https://medium.com/@debankansarkar'
+    }
+  ],
   upcomingRaces: [
     {
       name: 'Kolkata Marathon 2026',
@@ -97,6 +117,7 @@ const racesList = document.querySelector('#races-list');
 const achievementsList = document.querySelector('#achievements-list');
 const stravaStats = document.querySelector('#strava-stats');
 const prsList = document.querySelector('#prs-list');
+const blogsList = document.querySelector('#blogs-list');
 const sections = document.querySelectorAll('section, .hero-copy, .hero-media');
 
 // Navigation Toggle
@@ -320,10 +341,39 @@ function loadPRs() {
   }
 }
 
+// Load Endurance Blogs
+function loadBlogs() {
+  if (!blogsList) return;
+
+  try {
+    const blogs = enduranceData.enduranceBlogs || [];
+
+    if (!blogs.length) {
+      blogsList.innerHTML = '<article class="blog-card placeholder"><p>No endurance blogs available.</p></article>';
+      return;
+    }
+
+    const html = blogs.map((blog) => `
+      <article class="blog-card">
+        <span class="blog-date">${blog.pubDate}</span>
+        <h3>${blog.title}</h3>
+        <p>${blog.description}</p>
+        <a class="blog-link" href="${blog.link}" target="_blank" rel="noreferrer">Read on Medium →</a>
+      </article>
+    `).join('');
+
+    blogsList.innerHTML = html;
+  } catch (error) {
+    blogsList.innerHTML = '<article class="blog-card placeholder"><p>Error loading blog data.</p></article>';
+    console.error('Blogs load error:', error);
+  }
+}
+
 // Load all data when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   loadRaces();
   loadAchievements();
   loadStravaStats();
   loadPRs();
+  loadBlogs();
 });
