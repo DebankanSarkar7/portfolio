@@ -7,6 +7,8 @@
   --accent: #ceff00;
   --accent-strong: #b6ff00;
   --border: rgba(255,255,255,0.08);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-top: env(safe-area-inset-top);
 }
 
 body[data-theme="light"] {
@@ -73,6 +75,7 @@ body[data-theme="light"]::before {
   max-width: 1220px;
   margin: 0 auto;
   padding: 36px 32px 80px;
+  padding-bottom: calc(80px + var(--safe-area-inset-bottom));
 }
 
 .site-header {
@@ -489,7 +492,7 @@ body[data-theme="light"] .site-header {
 
 .medium-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 32px;
   margin-top: 32px;
 }
@@ -766,7 +769,7 @@ body[data-theme="light"] .site-header {
 .races-grid,
 .achievements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
   margin-top: 32px;
 }
@@ -971,7 +974,7 @@ body[data-theme="light"] .site-header {
 
 .cycling-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 16px;
   margin-top: 32px;
 }
@@ -1015,7 +1018,7 @@ body[data-theme="light"] .site-header {
 
 .cycling-highlights-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
 }
 
@@ -1070,9 +1073,10 @@ body[data-theme="light"] .site-header {
 
 .gallery-tabs {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   margin-top: 32px;
   margin-bottom: 32px;
+  flex-wrap: wrap;
 }
 
 .gallery-tab {
@@ -1104,7 +1108,7 @@ body[data-theme="light"] .site-header {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 24px;
 }
 
@@ -1487,6 +1491,7 @@ body[data-theme="light"] .site-header {
 @media (max-width: 1024px) {
   .page-shell {
     padding: 28px 24px 64px;
+    padding-bottom: calc(64px + var(--safe-area-inset-bottom));
   }
   .hero {
     gap: 32px;
@@ -1549,11 +1554,55 @@ body[data-theme="light"] .site-header {
     flex-direction: column;
     align-items: flex-start;
   }
+
+  /* Endurance page responsive */
+  .races-grid,
+  .achievements-grid,
+  .cycling-highlights-grid,
+  .blogs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cycling-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-tabs {
+    flex-wrap: wrap;
+  }
+
+  .race-header,
+  .achievement-header,
+  .highlight-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .race-badges {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .section-header .button {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 @media (max-width: 560px) {
   .page-shell {
-    padding: 22px 18px 50px;
+    padding: 16px 16px 48px;
+    padding-bottom: calc(48px + var(--safe-area-inset-bottom));
   }
 
   .site-header {
@@ -1564,6 +1613,91 @@ body[data-theme="light"] .site-header {
   .nav-toggle {
     display: block;
   }
+
+  /* Endurance page mobile fixes */
+  .cycling-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-tabs {
+    gap: 8px;
+  }
+
+  .gallery-tab {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+  }
+
+  .race-card,
+  .achievement-card,
+  .cycling-highlight-card,
+  .blog-card,
+  .gallery-card {
+    padding: 20px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .section-header .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Touch-friendly targets */
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .nav-toggle {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Font sizes for mobile */
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobile-first touch optimization */
+@media (hover: none) and (pointer: coarse) {
+  .medium-card,
+  .race-card,
+  .achievement-card,
+  .cycling-highlight-card,
+  .blog-card,
+  .gallery-card {
+    transition: none;
+  }
+
+  .medium-card:hover,
+  .race-card:hover,
+  .achievement-card:hover,
+  .cycling-highlight-card:hover,
+  .blog-card:hover,
+  .gallery-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .nav-toggle {
+    cursor: pointer;
+  }
+}
 
   .hero h1 {
     font-size: clamp(3rem, 10vw, 4.6rem);
