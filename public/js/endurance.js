@@ -5,27 +5,33 @@ const enduranceData = {
     totalTime: '523:45:30',
     activities: 156,
     elevation: '45,678 m',
-    longestRide: '180 km',
-    avgSpeed: '28.5 km/h'
+    longestRide: '102.9 km',
+    avgSpeed: '16.4 km/h'
   },
   cyclingHighlights: [
     {
-      title: '180km Century Ride',
-      date: 'July 2026',
+      title: 'July Gran Fondo Challenge',
+      date: 'July 11, 2026',
       location: 'Kolkata Circuit',
-      achievement: 'First sub-5 hour century'
+      achievement: '100 km completed in 6h 15m'
     },
     {
-      title: 'Hill Climb Challenge',
-      date: 'June 2026',
-      location: 'Darjeeling Hills',
-      achievement: '2,500m elevation gain'
+      title: '50 km Challenge',
+      date: 'Completed',
+      location: 'Training Route',
+      achievement: '50 km cycling challenge completed'
     },
     {
-      title: 'Group Ride Leader',
-      date: 'May 2026',
-      location: 'Sundarbans Loop',
-      achievement: 'Led 50+ rider peloton'
+      title: '25 km Challenge',
+      date: 'Completed',
+      location: 'Training Route',
+      achievement: '25 km cycling challenge completed'
+    },
+    {
+      title: 'Century Ride',
+      date: 'Target',
+      location: 'Planning',
+      achievement: '100 km cycling challenge'
     }
   ],
   gallery: {
@@ -143,7 +149,7 @@ const enduranceData = {
       totalTime: '85:30:15',
       longestRun: '28 km',
       avgPace: '5:35/km',
-      keyAchievement: 'Consistent sub-5:40 pace'
+      keyAchievement: 'Completed 100 km Gran Fondo in 6h 15m'
     },
     {
       month: 'June 2026',
@@ -163,28 +169,28 @@ const enduranceData = {
   },
   personalRecords: [
     {
+      distance: '1K',
+      time: '7:46',
+      date: 'Recent',
+      pace: '7:46/km'
+    },
+    {
+      distance: '1 Mile',
+      time: '13:11',
+      date: 'Recent',
+      pace: '8:11/mile'
+    },
+    {
+      distance: '2 Mile',
+      time: '30:01',
+      date: 'Recent',
+      pace: '15:00/mile'
+    },
+    {
       distance: '5K',
-      time: '18:45',
-      date: 'July 15, 2026',
-      pace: '3:45/km'
-    },
-    {
-      distance: '10K',
-      time: '39:30',
-      date: 'August 2, 2026',
-      pace: '3:57/km'
-    },
-    {
-      distance: 'Half Marathon',
-      time: '1:28:15',
-      date: 'August 20, 2026',
-      pace: '4:11/km'
-    },
-    {
-      distance: 'Marathon',
-      time: '3:12:30',
-      date: 'January 2026',
-      pace: '4:34/km'
+      time: '46:19',
+      date: 'Recent',
+      pace: '9:16/km'
     }
   ]
 };
