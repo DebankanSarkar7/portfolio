@@ -97,6 +97,7 @@ const racesList = document.querySelector('#races-list');
 const achievementsList = document.querySelector('#achievements-list');
 const stravaStats = document.querySelector('#strava-stats');
 const prsList = document.querySelector('#prs-list');
+const blogsList = document.querySelector('#blogs-list');
 const sections = document.querySelectorAll('section, .hero-copy, .hero-media');
 
 // Navigation Toggle
@@ -320,10 +321,83 @@ function loadPRs() {
   }
 }
 
+// Load Endurance Blogs from Medium RSS
+function loadEnduranceBlogs() {
+  if (!blogsList) return;
+
+  try {
+    const rssUrl = 'https://medium.com/feed/@debankansarkar';
+    
+    fetch(rssUrl)
+      .then(response => response.text())
+      .then(str => {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(str, 'text/xml');
+        const items = xml.querySelectorAll('item');
+        
+        const endurancePosts = [];
+        const itemsArray = Array.from(items);
+        
+        // Filter for endurance-related posts by checking tags/categories
+        itemsArray.forEach(item => {
+          const categories = Array.from(item.querySelectorAll('category')).map(cat => cat.textContent.toLowerCase());
+          const title = item.querySelector('title')?.textContent || '';
+          const link = item.querySelector('link')?.textContent || '';
+          const pubDate = item.querySelector('pubDate')?.textContent || '';
+          const description = item.querySelector('description')?.textContent || '';
+          
+          // Check if post is endurance-related (contains endurance-related keywords)
+          const enduranceKeywords = ['endurance', 'running', 'marathon', 'training', 'fitness', 'pace', 'distance', 'strava', 'athlete'];
+          const isEndurance = enduranceKeywords.some(keyword => 
+            title.toLowerCase().includes(keyword) || 
+            description.toLowerCase().includes(keyword) ||
+            categories.some(cat => cat.includes(keyword))
+          );
+          
+          if (isEndurance) {
+            const date = pubDate ? new Date(pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+            const cleanDescription = description.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 135);
+            
+            endurancePosts.push({
+              title,
+              link,
+              pubDate: date,
+              description: cleanDescription.length ? cleanDescription + '...' : 'Read more on Medium.'
+            });
+          }
+        });
+        
+        if (endurancePosts.length === 0) {
+          blogsList.innerHTML = '<article class="blog-card placeholder"><p>No endurance blogs found. Check back soon!</p></article>';
+          return;
+        }
+        
+        const html = endurancePosts.slice(0, 6).map(blog => `
+          <article class="blog-card">
+            <span class="blog-date">${blog.pubDate}</span>
+            <h3>${blog.title}</h3>
+            <p>${blog.description}</p>
+            <a class="blog-link" href="${blog.link}" target="_blank" rel="noreferrer">Read on Medium →</a>
+          </article>
+        `).join('');
+        
+        blogsList.innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Medium RSS fetch error:', error);
+        blogsList.innerHTML = '<article class="blog-card placeholder"><p>Error loading endurance blogs.</p></article>';
+      });
+  } catch (error) {
+    blogsList.innerHTML = '<article class="blog-card placeholder"><p>Error loading blog data.</p></article>';
+    console.error('Blogs load error:', error);
+  }
+}
+
 // Load all data when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   loadRaces();
   loadAchievements();
   loadStravaStats();
   loadPRs();
+  loadEnduranceBlogs();
 });
