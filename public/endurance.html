@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Endurance Journey | Debankan Sarkar</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="topbar-progress" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html">DS<span class="brand-dot">.</span></a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-label="Open navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html#work">Work</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="endurance.html" class="active">Endurance</a>
+        <a href="index.html#journal">Journal</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
+        <a class="button button-primary" href="mailto:debankanins@gmail.com">Let's talk ↗</a>
+      </div>
+    </header>
+
+    <main class="hero">
+      <div class="hero-copy reveal-on-scroll">
+        <p class="eyebrow">Endurance Journey</p>
+        <h1>Chasing <span class="highlight">marginal gains</span><br>&amp; <span class="highlight">sub-3 marathons</span>.</h1>
+        <p class="hero-text">Building aerobic capacity one morning at a time. Same discipline that keeps data pipelines running at 3AM, now applied to conquering kilometers and personal records.</p>
+        <div class="hero-actions">
+          <a class="button button-secondary" href="#upcoming">Upcoming races</a>
+          <a class="hero-link" href="#strava">See Strava stats →</a>
+        </div>
+        <div class="hero-meta">
+          <span>Sub-3 marathon goal</span>
+          <span>1000+ km/month</span>
+          <span>Consistent daily training</span>
+        </div>
+      </div>
+
+      <div class="hero-media reveal-on-scroll">
+        <div class="hero-image" role="img" aria-label="Runner on a morning training session"></div>
+      </div>
+    </main>
+
+    <section id="upcoming" class="races-section reveal-on-scroll">
+      <div class="section-header">
+        <div>
+          <p class="section-label">Racing Calendar</p>
+          <h2>Upcoming Marathons</h2>
+        </div>
+      </div>
+
+      <div class="races-grid" id="races-list">
+        <!-- Races will be loaded here -->
+      </div>
+    </section>
+
+    <section id="achievements" class="achievements-section reveal-on-scroll">
+      <div class="section-header">
+        <div>
+          <p class="section-label">Progress</p>
+          <h2>Monthly Achievements</h2>
+        </div>
+      </div>
+
+      <div class="achievements-grid" id="achievements-list">
+        <!-- Achievements will be loaded here -->
+      </div>
+    </section>
+
+    <section id="strava" class="strava-section reveal-on-scroll">
+      <div class="section-header">
+        <div>
+          <p class="section-label">Data-Driven Training</p>
+          <h2>Strava Performance</h2>
+        </div>
+        <a href="https://strava.com/athletes/debankansarkar" target="_blank" rel="noreferrer" class="button button-secondary">Follow on Strava ↗</a>
+      </div>
+
+      <div class="strava-stats" id="strava-stats">
+        <!-- Strava stats will be loaded here -->
+      </div>
+
+      <div class="strava-prs" id="strava-prs">
+        <h3>Personal Records</h3>
+        <div class="prs-grid" id="prs-list">
+          <!-- PRs will be loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <section id="training" class="training-section reveal-on-scroll">
+      <div class="section-header">
+        <div>
+          <p class="section-label">Methodology</p>
+          <h2>Training Philosophy</h2>
+        </div>
+      </div>
+
+      <div class="training-grid">
+        <article class="training-card">
+          <span class="training-index">01</span>
+          <h3>Consistency Over Intensity</h3>
+          <p>Easy days build the aerobic base. Hard days sharpen the race pace. The magic happens in the consistent middle ground where most training happens.</p>
+        </article>
+        <article class="training-card">
+          <span class="training-index">02</span>
+          <h3>Data-Informed Decisions</h3>
+          <p>Heart rate zones, pace targets, recovery metrics. The same analytical mindset that optimizes data pipelines now optimizes training adaptations.</p>
+        </article>
+        <article class="training-card">
+          <span class="training-index">03</span>
+          <h3>Progressive Overload</h3>
+          <p>Small increases that compound over time. 1% better each day equals substantial gains over months. Patience meets precision.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>&copy; 2026 Debankan Sarkar. Built with the same discipline as training.</p>
+        <div class="footer-links">
+          <a href="index.html">Back to Portfolio</a>
+          <a href="https://strava.com/athletes/debankansarkar" target="_blank" rel="noreferrer">Strava</a>
+          <a href="https://medium.com/@debankansarkar" target="_blank" rel="noreferrer">Medium</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/endurance.js"></script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+// Embedded Endurance Data
+const enduranceData = {
+  upcomingRaces: [
+    {
+      name: 'Kolkata Marathon 2026',
+      date: 'September 15, 2026',
+      location: 'Kolkata, India',
+      distance: '42.2 km',
+      goal: 'Sub-3:00',
+      status: 'Training'
+    },
+    {
+      name: 'Mumbai City Marathon',
+      date: 'January 15, 2027',
+      location: 'Mumbai, India',
+      distance: '42.2 km',
+      goal: 'Sub-2:55',
+      status: 'Registered'
+    },
+    {
+      name: 'Delhi Half Marathon',
+      date: 'October 20, 2026',
+      location: 'New Delhi, India',
+      distance: '21.1 km',
+      goal: 'Sub-1:20',
+      status: 'Training'
+    }
+  ],
+  monthlyAchievements: [
+    {
+      month: 'August 2026',
+      totalDistance: '1,247 km',
+      totalTime: '92:45:30',
+      longestRun: '32 km',
+      avgPace: '5:42/km',
+      keyAchievement: 'First 1200+ km month'
+    },
+    {
+      month: 'July 2026',
+      totalDistance: '1,156 km',
+      totalTime: '85:30:15',
+      longestRun: '28 km',
+      avgPace: '5:35/km',
+      keyAchievement: 'Consistent sub-5:40 pace'
+    },
+    {
+      month: 'June 2026',
+      totalDistance: '1,089 km',
+      totalTime: '79:15:45',
+      longestRun: '25 km',
+      avgPace: '5:48/km',
+      keyAchievement: 'Built strong aerobic base'
+    }
+  ],
+  stravaStats: {
+    totalDistance: '8,456 km',
+    totalTime: '623:45:30',
+    activities: 284,
+    elevation: '12,450 m',
+    currentStreak: 45
+  },
+  personalRecords: [
+    {
+      distance: '5K',
+      time: '18:45',
+      date: 'July 15, 2026',
+      pace: '3:45/km'
+    },
+    {
+      distance: '10K',
+      time: '39:30',
+      date: 'August 2, 2026',
+      pace: '3:57/km'
+    },
+    {
+      distance: 'Half Marathon',
+      time: '1:28:15',
+      date: 'August 20, 2026',
+      pace: '4:11/km'
+    },
+    {
+      distance: 'Marathon',
+      time: '3:12:30',
+      date: 'January 2026',
+      pace: '4:34/km'
+    }
+  ]
+};
+
+// DOM Elements
+const navToggle = document.querySelector('.nav-toggle');
+const siteNav = document.querySelector('.site-nav');
+const navLinks = document.querySelectorAll('.site-nav a');
+const themeToggle = document.querySelector('.theme-toggle');
+const scrollProgress = document.querySelector('.topbar-progress');
+const racesList = document.querySelector('#races-list');
+const achievementsList = document.querySelector('#achievements-list');
+const stravaStats = document.querySelector('#strava-stats');
+const prsList = document.querySelector('#prs-list');
+const sections = document.querySelectorAll('section, .hero-copy, .hero-media');
+
+// Navigation Toggle
+if (navToggle && siteNav) {
+  navToggle.addEventListener('click', () => {
+    const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', String(!expanded));
+    navToggle.classList.toggle('open');
+    siteNav.classList.toggle('open');
+  });
+}
+
+navLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    if (siteNav.classList.contains('open')) {
+      siteNav.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+
+// Theme Toggle
+if (themeToggle) {
+  const savedTheme = localStorage.getItem('portfolioTheme');
+  if (savedTheme) {
+    document.body.dataset.theme = savedTheme;
+    themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = document.body.dataset.theme === 'light' ? 'dark' : 'light';
+    document.body.dataset.theme = nextTheme;
+    localStorage.setItem('portfolioTheme', nextTheme);
+    themeToggle.textContent = nextTheme === 'light' ? '☀️' : '🌙';
+  });
+}
+
+// Scroll Progress
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  if (scrollProgress) {
+    scrollProgress.style.width = `${progress}%`;
+  }
+});
+
+// Reveal on Scroll
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.2,
+});
+
+sections.forEach((section) => {
+  revealObserver.observe(section);
+});
+
+// Load Upcoming Races
+function loadRaces() {
+  if (!racesList) return;
+
+  try {
+    const races = enduranceData.upcomingRaces || [];
+
+    if (!races.length) {
+      racesList.innerHTML = '<div class="race-card placeholder"><p>No upcoming races scheduled.</p></div>';
+      return;
+    }
+
+    const html = races.map((race) => `
+      <article class="race-card">
+        <div class="race-header">
+          <h3>${race.name}</h3>
+          <span class="race-status ${race.status.toLowerCase()}">${race.status}</span>
+        </div>
+        <div class="race-details">
+          <div class="race-detail">
+            <span class="race-label">Date</span>
+            <span class="race-value">${race.date}</span>
+          </div>
+          <div class="race-detail">
+            <span class="race-label">Location</span>
+            <span class="race-value">${race.location}</span>
+          </div>
+          <div class="race-detail">
+            <span class="race-label">Distance</span>
+            <span class="race-value">${race.distance}</span>
+          </div>
+          <div class="race-detail">
+            <span class="race-label">Goal</span>
+            <span class="race-value goal">${race.goal}</span>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    racesList.innerHTML = html;
+  } catch (error) {
+    racesList.innerHTML = '<div class="race-card placeholder"><p>Error loading race data.</p></div>';
+    console.error('Races load error:', error);
+  }
+}
+
+// Load Monthly Achievements
+function loadAchievements() {
+  if (!achievementsList) return;
+
+  try {
+    const achievements = enduranceData.monthlyAchievements || [];
+
+    if (!achievements.length) {
+      achievementsList.innerHTML = '<div class="achievement-card placeholder"><p>No achievement data available.</p></div>';
+      return;
+    }
+
+    const html = achievements.map((achievement) => `
+      <article class="achievement-card">
+        <div class="achievement-header">
+          <h3>${achievement.month}</h3>
+          <span class="achievement-highlight">${achievement.keyAchievement}</span>
+        </div>
+        <div class="achievement-stats">
+          <div class="achievement-stat">
+            <span class="stat-number">${achievement.totalDistance}</span>
+            <span class="stat-label">Total Distance</span>
+          </div>
+          <div class="achievement-stat">
+            <span class="stat-number">${achievement.totalTime}</span>
+            <span class="stat-label">Total Time</span>
+          </div>
+          <div class="achievement-stat">
+            <span class="stat-number">${achievement.longestRun}</span>
+            <span class="stat-label">Longest Run</span>
+          </div>
+          <div class="achievement-stat">
+            <span class="stat-number">${achievement.avgPace}</span>
+            <span class="stat-label">Avg Pace</span>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    achievementsList.innerHTML = html;
+  } catch (error) {
+    achievementsList.innerHTML = '<div class="achievement-card placeholder"><p>Error loading achievement data.</p></div>';
+    console.error('Achievements load error:', error);
+  }
+}
+
+// Load Strava Stats
+function loadStravaStats() {
+  if (!stravaStats) return;
+
+  try {
+    const stats = enduranceData.stravaStats;
+
+    const html = `
+      <div class="strava-stat-card">
+        <span class="strava-stat-number">${stats.totalDistance}</span>
+        <span class="strava-stat-label">Total Distance</span>
+      </div>
+      <div class="strava-stat-card">
+        <span class="strava-stat-number">${stats.totalTime}</span>
+        <span class="strava-stat-label">Total Time</span>
+      </div>
+      <div class="strava-stat-card">
+        <span class="strava-stat-number">${stats.activities}</span>
+        <span class="strava-stat-label">Activities</span>
+      </div>
+      <div class="strava-stat-card">
+        <span class="strava-stat-number">${stats.elevation}</span>
+        <span class="strava-stat-label">Elevation Gain</span>
+      </div>
+      <div class="strava-stat-card">
+        <span class="strava-stat-number">${stats.currentStreak}</span>
+        <span class="strava-stat-label">Day Streak</span>
+      </div>
+    `;
+
+    stravaStats.innerHTML = html;
+  } catch (error) {
+    stravaStats.innerHTML = '<div class="strava-stat-card placeholder"><p>Error loading Strava stats.</p></div>';
+    console.error('Strava stats load error:', error);
+  }
+}
+
+// Load Personal Records
+function loadPRs() {
+  if (!prsList) return;
+
+  try {
+    const prs = enduranceData.personalRecords || [];
+
+    if (!prs.length) {
+      prsList.innerHTML = '<div class="pr-card placeholder"><p>No PR data available.</p></div>';
+      return;
+    }
+
+    const html = prs.map((pr) => `
+      <article class="pr-card">
+        <div class="pr-distance">${pr.distance}</div>
+        <div class="pr-time">${pr.time}</div>
+        <div class="pr-details">
+          <span class="pr-pace">${pr.pace}</span>
+          <span class="pr-date">${pr.date}</span>
+        </div>
+      </article>
+    `).join('');
+
+    prsList.innerHTML = html;
+  } catch (error) {
+    prsList.innerHTML = '<div class="pr-card placeholder"><p>Error loading PR data.</p></div>';
+    console.error('PRs load error:', error);
+  }
+}
+
+// Load all data when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  loadRaces();
+  loadAchievements();
+  loadStravaStats();
+  loadPRs();
+});
