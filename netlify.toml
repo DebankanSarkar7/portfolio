@@ -3,8 +3,18 @@
   publish = "public"
 
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  from = "/api/medium"
+  to = "/.netlify/functions/api-medium"
+  status = 200
+
+[[redirects]]
+  from = "/api/linkedin/experience"
+  to = "/.netlify/functions/api-linkedin-experience"
+  status = 200
+
+[[redirects]]
+  from = "/api/linkedin/skills"
+  to = "/.netlify/functions/api-linkedin-skills"
   status = 200
 
 [[redirects]]

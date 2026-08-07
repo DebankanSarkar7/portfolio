@@ -78,7 +78,7 @@ async function loadMediumStories() {
   if (!techList || !enduranceList) return;
 
   try {
-    const res = await fetch('/.netlify/functions/medium');
+    const res = await fetch('/api/medium');
     if (!res.ok) throw new Error('Network response was not ok');
 
     const data = await res.json();
@@ -122,7 +122,7 @@ async function loadExperience() {
   if (!experienceList) return;
 
   try {
-    const res = await fetch('/.netlify/functions/experience');
+    const res = await fetch('/api/linkedin/experience');
     if (!res.ok) throw new Error('Network response was not ok');
 
     const data = await res.json();
@@ -162,7 +162,7 @@ async function loadSkills() {
   if (!skillsList) return;
 
   try {
-    const res = await fetch('/.netlify/functions/skills');
+    const res = await fetch('/api/linkedin/skills');
     if (!res.ok) throw new Error('Network response was not ok');
 
     const data = await res.json();
