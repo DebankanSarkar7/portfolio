@@ -7,7 +7,54 @@ const scrollProgress = document.querySelector('.topbar-progress');
 const techList = document.querySelector('#tech-list');
 const experienceList = document.querySelector('#experience-list');
 const skillsList = document.querySelector('#skills-list');
+const certificationsTimeline = document.querySelector('#certifications-timeline');
 const sections = document.querySelectorAll('section, .hero-copy, .hero-media');
+
+// Embedded Certifications Data
+const certificationsData = [
+  {
+    title: 'AWS Data Engineer',
+    date: 'July 2026',
+    description: 'AWS Certified Data Engineer - Associate',
+    credential: 'AWS',
+    icon: '☁️'
+  },
+  {
+    title: 'AI Practitioner',
+    date: 'June 2026',
+    description: 'AWS Certified AI Practitioner',
+    credential: 'AWS',
+    icon: '🤖'
+  },
+  {
+    title: 'Data Engineer Associate',
+    date: 'May 2026',
+    description: 'Databricks Certified Data Engineer Associate',
+    credential: 'Databricks',
+    icon: '📊'
+  },
+  {
+    title: 'Cloud Practitioner',
+    date: 'April 2026',
+    description: 'AWS Certified Cloud Practitioner',
+    credential: 'AWS',
+    icon: '☁️'
+  },
+  {
+    title: 'Python for Data Science',
+    date: 'March 2026',
+    description: 'IBM Python for Data Science Certification',
+    credential: 'IBM',
+    icon: '🐍'
+  },
+  {
+    title: 'SQL Fundamentals',
+    date: 'February 2026',
+    description: 'Microsoft SQL Fundamentals',
+    credential: 'Microsoft',
+    icon: '🗄️'
+  }
+];
 
 // Embedded LinkedIn Data
 const linkedInData = {
@@ -204,6 +251,38 @@ function loadMediumStories() {
   }
 }
 
+function loadCertifications() {
+  if (!certificationsTimeline) return;
+
+  try {
+    const certifications = certificationsData || [];
+
+    if (!certifications.length) {
+      certificationsTimeline.innerHTML = '<div class="certification-item"><p>No certifications yet.</p></div>';
+      return;
+    }
+
+    const html = certifications.map((cert) => `
+      <div class="certification-item">
+        <span class="certification-icon">${cert.icon}</span>
+        <div class="certification-card">
+          <div class="certification-header">
+            <h3 class="certification-title">${cert.title}</h3>
+            <span class="certification-date">${cert.date}</span>
+          </div>
+          <span class="certification-credential">${cert.credential}</span>
+          <p class="certification-description">${cert.description}</p>
+        </div>
+      </div>
+    `).join('');
+
+    certificationsTimeline.innerHTML = html;
+  } catch (error) {
+    certificationsTimeline.innerHTML = '<div class="certification-item"><p>Error loading certifications.</p></div>';
+    console.error('Certifications load error:', error);
+  }
+}
+
 function loadExperience() {
   if (!experienceList) return;
 
@@ -262,12 +341,14 @@ function loadSkills() {
 loadExperience();
 loadSkills();
 loadMediumStories();
+loadCertifications();
 
 // Load data when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   loadExperience();
   loadSkills();
   loadMediumStories();
+  loadCertifications();
 });
 
 window.addEventListener('scroll', () => {
