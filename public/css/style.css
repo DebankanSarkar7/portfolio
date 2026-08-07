@@ -752,7 +752,6 @@ body[data-theme="light"] .site-header {
 /* ========== Endurance Page Styles ========== */
 .races-section,
 .achievements-section,
-.blogs-section,
 .strava-section,
 .training-section {
   margin-top: 84px;
@@ -761,8 +760,7 @@ body[data-theme="light"] .site-header {
 }
 
 .races-grid,
-.achievements-grid,
-.blogs-grid {
+.achievements-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
