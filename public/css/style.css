@@ -837,6 +837,18 @@ body[data-theme="light"] .site-header {
 }
 
 .achievement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.achievement-header h3 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.achievement-highlight {
   color: var(--accent);
   font-size: 0.9rem;
   font-weight: 500;
