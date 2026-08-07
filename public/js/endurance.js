@@ -6,7 +6,7 @@ const enduranceData = {
     activities: 156,
     elevation: '45,678 m',
     longestRide: '102.9 km',
-    avgSpeed: '16.4 km/h'
+    avgSpeed: '16.0 km/h'
   },
   cyclingHighlights: [
     {
