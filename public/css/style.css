@@ -310,6 +310,8 @@ body[data-theme="light"] .site-header {
   padding: 32px;
   min-height: 260px;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .feature-card:hover {
@@ -334,6 +336,12 @@ body[data-theme="light"] .site-header {
 .feature-card p {
   color: var(--muted);
   line-height: 1.85;
+  margin-bottom: 24px;
+}
+
+.feature-card .button {
+  margin-top: auto;
+  width: fit-content;
 }
 
 .section-split {
