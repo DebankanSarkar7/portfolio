@@ -21,10 +21,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Copy public folder to root
+      - name: Copy website files to deploy folder
         run: |
           mkdir -p deploy
-          cp -r public/* deploy/
+          cp index.html deploy/
+          cp endurance.html deploy/
+          cp -r css deploy/
+          cp -r js deploy/
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
