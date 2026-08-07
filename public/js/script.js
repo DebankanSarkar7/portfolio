@@ -10,6 +10,39 @@ const experienceList = document.querySelector('#experience-list');
 const skillsList = document.querySelector('#skills-list');
 const sections = document.querySelectorAll('section, .hero-copy, .hero-media');
 
+// Embedded LinkedIn Data
+const linkedInData = {
+  positions: [
+    {
+      company: 'Tata Consultancy Services',
+      title: 'Data Engineer',
+      description: '• Designed and developed enterprise-scale data platforms on AWS using S3, Lambda, Glue, and Python\n• Integrated diverse business platforms into centralized cloud data platforms through robust ETL pipelines\n• Optimized SQL databases for downstream API and application consumption, improving data accessibility\n• Implemented real-time data pipelines using PySpark, AWS DMS, SQS, CloudWatch, DynamoDB, and RDS\n• Conducted comprehensive data analysis to design cost-effective, high-performance data pipelines',
+      location: 'Kolkata',
+      startDate: 'Apr 2025',
+      endDate: 'Present'
+    }
+  ],
+  skills: [
+    'Amazon Athena',
+    'AWS Lambda',
+    'Extract, Transform, Load (ETL)',
+    'SQL',
+    'Amazon S3',
+    'Data Engineering',
+    'PySpark',
+    'Amazon Web Services (AWS)',
+    'Software Development',
+    'Git',
+    'Computer Science',
+    'Python (Programming Language)',
+    'Operating Systems',
+    'Networking',
+    'Engineering',
+    'Communication',
+    'English'
+  ]
+};
+
 if (navToggle && siteNav) {
   navToggle.addEventListener('click', () => {
     const expanded = navToggle.getAttribute('aria-expanded') === 'true';
@@ -74,30 +107,41 @@ sections.forEach((section) => {
   revealObserver.observe(section);
 });
 
-async function loadMediumStories() {
+function loadMediumStories() {
   if (!techList || !enduranceList) return;
 
   try {
-    const res = await fetch('/api/medium');
-    if (!res.ok) throw new Error('Network response was not ok');
+    // Embedded sample Medium data
+    const mediumData = {
+      tech: [
+        {
+          title: 'Modern Data Architecture for Real Workload',
+          description: 'Why the best platforms combine low-latency queries with strong governance and disciplined ingestion.',
+          pubDate: 'Aug 5, 2026',
+          link: 'https://medium.com/@debankansarkar'
+        },
+        {
+          title: 'Observability That Doesn\'t Sleep',
+          description: 'From alerting rules to incident narratives, everything is built to keep the pipeline moving.',
+          pubDate: 'Jul 28, 2026',
+          link: 'https://medium.com/@debankansarkar'
+        }
+      ],
+      endurance: [
+        {
+          title: 'Tempo Work and Threshold Training',
+          description: 'The same mind that builds durable systems also values steady growth on the road.',
+          pubDate: 'Aug 1, 2026',
+          link: 'https://medium.com/@debankansarkar'
+        }
+      ]
+    };
 
-    const data = await res.json();
-    const items = Array.isArray(data.items) ? data.items : [];
-
-    if (!items.length) {
-      techList.innerHTML = '<article class="medium-card placeholder"><p>No stories found.</p></article>';
-      enduranceList.innerHTML = '<article class="medium-card placeholder"><p>No stories found.</p></article>';
-      return;
-    }
-
-    const techItems = items.filter(item => item.category === 'tech' || item.category === 'both');
-    const enduranceItems = items.filter(item => item.category === 'endurance' || item.category === 'both');
-
-    function renderCards(cardList, categorizedItems) {
-      if (!categorizedItems.length) {
+    function renderCards(items) {
+      if (!items.length) {
         return '<article class="medium-card placeholder"><p>No stories in this category yet.</p></article>';
       }
-      return categorizedItems.map((item) => `
+      return items.map((item) => `
         <article class="medium-card">
           <span class="medium-date">${item.pubDate}</span>
           <h3>${item.title}</h3>
@@ -107,26 +151,22 @@ async function loadMediumStories() {
       `).join('');
     }
 
-    techList.innerHTML = renderCards(techList, techItems);
-    enduranceList.innerHTML = renderCards(enduranceList, enduranceItems);
+    techList.innerHTML = renderCards(mediumData.tech);
+    enduranceList.innerHTML = renderCards(mediumData.endurance);
   } catch (error) {
-    techList.innerHTML = '';
-    enduranceList.innerHTML = '';
+    techList.innerHTML = '<article class="medium-card placeholder"><p>Error loading tech stories.</p></article>';
+    enduranceList.innerHTML = '<article class="medium-card placeholder"><p>Error loading endurance stories.</p></article>';
     console.error('Medium load error:', error);
   }
 }
 
 loadMediumStories();
 
-async function loadExperience() {
+function loadExperience() {
   if (!experienceList) return;
 
   try {
-    const res = await fetch('/api/linkedin/experience');
-    if (!res.ok) throw new Error('Network response was not ok');
-
-    const data = await res.json();
-    const positions = Array.isArray(data.positions) ? data.positions : [];
+    const positions = linkedInData.positions || [];
 
     if (!positions.length) {
       experienceList.innerHTML = '<article class="experience-card placeholder"><p>No experience data found.</p></article>';
@@ -158,15 +198,11 @@ async function loadExperience() {
   }
 }
 
-async function loadSkills() {
+function loadSkills() {
   if (!skillsList) return;
 
   try {
-    const res = await fetch('/api/linkedin/skills');
-    if (!res.ok) throw new Error('Network response was not ok');
-
-    const data = await res.json();
-    const skills = Array.isArray(data.skills) ? data.skills : [];
+    const skills = linkedInData.skills || [];
 
     if (!skills.length) {
       skillsList.innerHTML = '<span class="skill-tag placeholder">No skills found.</span>';
