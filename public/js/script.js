@@ -116,45 +116,14 @@ function loadMediumStories() {
   if (!techList) return;
 
   try {
-    // Embedded sample Medium data - tech only
-    const mediumData = {
-      tech: [
-        {
-          title: 'Modern Data Architecture for Real Workload',
-          description: 'Why the best platforms combine low-latency queries with strong governance and disciplined ingestion.',
-          pubDate: 'Aug 5, 2026',
-          link: 'https://medium.com/@debankansarkar'
-        },
-        {
-          title: 'Observability That Doesn\'t Sleep',
-          description: 'From alerting rules to incident narratives, everything is built to keep the pipeline moving.',
-          pubDate: 'Jul 28, 2026',
-          link: 'https://medium.com/@debankansarkar'
-        },
-        {
-          title: 'Building Resilient Data Pipelines',
-          description: 'Lessons from production failures and how to design systems that recover gracefully.',
-          pubDate: 'Jul 10, 2026',
-          link: 'https://medium.com/@debankansarkar'
-        }
-      ]
-    };
-
-    function renderCards(items) {
-      if (!items.length) {
-        return '<article class="medium-card placeholder"><p>No stories in this category yet.</p></article>';
-      }
-      return items.map((item) => `
-        <article class="medium-card">
-          <span class="medium-date">${item.pubDate}</span>
-          <h3>${item.title}</h3>
-          <p>${item.description}</p>
-          <a class="medium-link" href="${item.link}" target="_blank" rel="noreferrer">Read on Medium →</a>
-        </article>
-      `).join('');
-    }
-
-    techList.innerHTML = renderCards(mediumData.tech);
+    // Show placeholder since no real tech blogs on Medium yet
+    techList.innerHTML = `
+      <article class="medium-card placeholder">
+        <h3>Tech Articles Coming Soon</h3>
+        <p>Check back for data engineering and technical articles. For now, explore my endurance writing on the dedicated page.</p>
+        <a class="medium-link" href="endurance.html">View Endurance Writing →</a>
+      </article>
+    `;
   } catch (error) {
     techList.innerHTML = '<article class="medium-card placeholder"><p>Error loading tech stories.</p></article>';
     console.error('Medium load error:', error);
