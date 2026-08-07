@@ -338,11 +338,6 @@ function loadSkills() {
   }
 }
 
-loadExperience();
-loadSkills();
-loadMediumStories();
-loadCertifications();
-
 // Load data when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   loadExperience();
