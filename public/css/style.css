@@ -817,6 +817,12 @@ body[data-theme="light"] .site-header {
   margin: 0;
 }
 
+.certifications-section {
+  margin-top: 84px;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
 .section-note {
   margin-top: 18px;
   color: var(--muted);
@@ -1283,12 +1289,6 @@ body[data-theme="light"] .site-header {
   color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.6;
-}
-
-.certifications-section {
-  margin-top: 84px;
-  padding: 40px 0;
-  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 .certifications-timeline {
