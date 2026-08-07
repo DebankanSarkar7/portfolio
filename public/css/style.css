@@ -1007,6 +1007,62 @@ body[data-theme="light"] .site-header {
   line-height: 1.7;
 }
 
+.strava-widgets {
+  margin-top: 48px;
+}
+
+.strava-widgets h3 {
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+}
+
+.strava-widget-container {
+  display: flex;
+  justify-content: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 32px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.strava-widget-container iframe {
+  border-radius: 16px;
+}
+
+.strava-profile-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.strava-embed-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  text-align: center;
+  color: var(--accent);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.strava-embed-placeholder:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.06);
+}
+
+.strava-embed-placeholder svg {
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.strava-embed-placeholder span {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
 .site-footer {
   margin-top: 84px;
   padding: 40px 0;
