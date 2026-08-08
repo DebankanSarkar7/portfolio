@@ -296,6 +296,11 @@ body[data-theme="light"] .site-header {
   border: 1px solid rgba(255,255,255,0.08);
 }
 
+.hero-image-custom {
+  background-image: linear-gradient(180deg, rgba(5,5,5,0.1), rgba(5,5,5,0.25)),
+                    url('images/I_m_cyclist_selfie.jpeg') !important;
+}
+
 .work-section {
   margin-top: 84px;
 }
