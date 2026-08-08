@@ -301,7 +301,7 @@ body[data-theme="light"] .site-header {
 }
 
 .work-section .feature-grid {
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
 .feature-grid {
@@ -574,6 +574,10 @@ body[data-theme="light"] .site-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+.work-section .section-header {
+  margin-bottom: 32px;
 }
 
 .section-header > div {
@@ -1981,6 +1985,7 @@ body[data-theme="light"] .site-header {
   }
 }
 
+@media (max-width: 480px) {
   .hero h1 {
     font-size: clamp(3rem, 10vw, 4.6rem);
   }
