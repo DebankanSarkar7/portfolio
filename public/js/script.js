@@ -320,22 +320,9 @@ function loadExperience() {
 }
 
 function loadSkills() {
+  // Skills are now displayed as static HTML categories
+  // This function is kept for potential future dynamic loading
   if (!skillsList) return;
-
-  try {
-    const skills = linkedInData.skills || [];
-
-    if (!skills.length) {
-      skillsList.innerHTML = '<span class="skill-tag placeholder">No skills found.</span>';
-      return;
-    }
-
-    const html = skills.map((skill) => `<span class="skill-tag">${skill}</span>`).join('');
-    skillsList.innerHTML = html;
-  } catch (error) {
-    skillsList.innerHTML = '<span class="skill-tag placeholder">Error loading skills.</span>';
-    console.error('Skills load error:', error);
-  }
 }
 
 // Load data when DOM is ready
