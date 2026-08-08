@@ -275,14 +275,14 @@ sections.forEach((section) => {
   revealObserver.observe(section);
 });
 
-// Parse CSV data
+// Parse CSV data with proper quote handling
 function parseCSV(csvText) {
   const lines = csvText.trim().split('\n');
-  const headers = lines[0].split(',').map(h => h.trim());
+  const headers = parseCSVLine(lines[0]);
   const data = [];
 
   for (let i = 1; i < lines.length; i++) {
-    const values = lines[i].split(',').map(v => v.trim());
+    const values = parseCSVLine(lines[i]);
     const obj = {};
     headers.forEach((header, index) => {
       obj[header] = values[index] || '';
@@ -291,6 +291,29 @@ function parseCSV(csvText) {
   }
 
   return data;
+}
+
+// Parse a single CSV line handling quoted fields
+function parseCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+
+    if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+
+  result.push(current.trim());
+  return result;
 }
 
 // Load Upcoming Races from CSV
