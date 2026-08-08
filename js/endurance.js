@@ -275,12 +275,36 @@ sections.forEach((section) => {
   revealObserver.observe(section);
 });
 
-// Load Upcoming Races
-function loadRaces() {
+// Parse CSV data
+function parseCSV(csvText) {
+  const lines = csvText.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  const data = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const values = lines[i].split(',').map(v => v.trim());
+    const obj = {};
+    headers.forEach((header, index) => {
+      obj[header] = values[index] || '';
+    });
+    data.push(obj);
+  }
+
+  return data;
+}
+
+// Load Upcoming Races from CSV
+async function loadRaces() {
   if (!racesList) return;
 
   try {
-    const races = enduranceData.upcomingRaces || [];
+    const response = await fetch('data/races.csv');
+    if (!response.ok) {
+      throw new Error('Failed to load races data');
+    }
+
+    const csvText = await response.text();
+    const races = parseCSV(csvText);
 
     if (!races.length) {
       racesList.innerHTML = '<div class="race-card placeholder"><p>No upcoming races scheduled.</p></div>';
